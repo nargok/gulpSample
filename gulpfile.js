@@ -1,21 +1,10 @@
 var gulp = require("gulp");
+var concat = require("gulp-concat"); // npmでインストールが必要
 
-gulp.task("a", () => {
-  console.log("a");
+gulp.task("concat", () => {
+  gulp.src(["sample1.txt", "sample2.txt"], { cwd: "./src"})
+  .pipe(concat("bundle.txt")) 
+  .pipe(gulp.dest("./dist"));
 });
 
-// ver 1.0 非同期なので順番は保証されていない
-// gulp.task("b", () => {
-//   console.log("b");
-// });
-
-// 非同期なので順番は保証されていない
-// gulp.task("default", ["a", "b"]);
-
-// ver 1.1 優先順位を指定する。aの後にbを順番で実行する
-gulp.task("b", ["a"], () => {
-  console.log("b");
-});
-
-// 非同期なので順番は保証されていない
-gulp.task("default", ["b"]);
+gulp.task("default", ["concat"]);
